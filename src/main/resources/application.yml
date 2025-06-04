@@ -1,0 +1,12 @@
+server:
+  port: 3901
+spring:
+  application:
+    name: MCPGateway
+  ai:
+    mcp:
+      server:
+        name: mcpgateway
+        version: 1.0.0
+        type: SYNC
+        sse-message-endpoint: /mcp/messages
