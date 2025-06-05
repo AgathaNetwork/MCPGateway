@@ -55,14 +55,14 @@ public class ToolServer {
         return databaseConnectionManager.getRecentPlayers();
     }
 
-    @Tool(description = "列出 openid.supplies 中的所有条目，包括 id 和 content，并返回一个友好的回复")
+    @Tool(description = "列出资源管理中的所有条目，包括 ID ，如果需要查询物资供应，例如火药、铁、红石等，可以先查询这个接口看有没有对应的机器。")
     public List<String> listSupplies() throws UnsupportedEncodingException {
         List<Map<String, String>> supplies = databaseConnectionManager.querySupplies();
         if (supplies.isEmpty()) {
-            return Collections.singletonList("没有找到任何物资条目");
+            return Collections.singletonList("没有找到任何资源条目");
         }
 
-        StringBuilder response = new StringBuilder("物资清单如下：\n");
+        StringBuilder response = new StringBuilder("资源清单如下：\n");
         for (Map<String, String> supply : supplies) {
             String id = supply.get("id");
             String content = supply.get("content");
@@ -73,7 +73,7 @@ public class ToolServer {
         return Collections.singletonList(response.toString());
     }
 
-    @Tool(description = "根据资源 ID 获取详细信息，包括世界、坐标、效率、状态和备注")
+    @Tool(description = "根据资源 ID 获取详细信息，包括世界、坐标、效率、状态和备注，需要配合 ID 才能查询。")
     public List<String> getSupplyDetails(String id) throws UnsupportedEncodingException {
         Map<String, String> supplyDetails = databaseConnectionManager.querySupplyDetailsById(id);
         if (supplyDetails.isEmpty()) {
