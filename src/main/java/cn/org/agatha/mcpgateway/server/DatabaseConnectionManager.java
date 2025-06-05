@@ -110,8 +110,9 @@ public class DatabaseConnectionManager {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     result.put("realname", resultSet.getString("realname"));
-                    result.put("lastlogin", resultSet.getTimestamp("lastlogin"));
-                    result.put("regdate", resultSet.getTimestamp("regdate"));
+                    // 将时间戳转换为 long 类型
+                    result.put("lastlogin", resultSet.getLong("lastlogin"));
+                    result.put("regdate", resultSet.getLong("regdate"));
                     result.put("isLogged", resultSet.getInt("isLogged"));
                 }
             }

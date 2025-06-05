@@ -23,15 +23,15 @@ public class ToolServer {
         Map<String, Object> playerInfo = databaseConnectionManager.queryAuthMeByPlayerName(name);
         if (!playerInfo.isEmpty()) {
             String realname = (String) playerInfo.get("realname");
-            Timestamp regdate = (Timestamp) playerInfo.get("regdate");
-            Timestamp lastlogin = (Timestamp) playerInfo.get("lastlogin");
+            long regdate = (long) playerInfo.get("regdate");
+            long lastlogin = (long) playerInfo.get("lastlogin");
             int isLogged = (int) playerInfo.get("isLogged");
 
             // 时间戳转换为北京时间
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             sdf.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
-            String formattedRegdate = sdf.format(regdate);
-            String formattedLastlogin = sdf.format(lastlogin);
+            String formattedRegdate = sdf.format(new Timestamp(regdate));
+            String formattedLastlogin = sdf.format(new Timestamp(lastlogin));
 
             // 在线状态转换
             String onlineStatus = isLogged == 1 ? "在线" : "不在线";
